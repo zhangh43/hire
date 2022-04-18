@@ -23,7 +23,7 @@ select product, country_id , year, sum(profit) from t1 group by product, country
 select product, country_id , year, sum(profit) from t1 group by product, country_id, year with rollup;
 ```
 
-3. Lock. We have three separate connections. What will happens after each queries(query1 - query4)?
+2. Lock. We have three separate connections. What will happens after each queries(query1 - query4)?
 
 ```
 CREATE TABLE t1 ( f1 INTEGER ) ENGINE = innodb;
@@ -43,7 +43,7 @@ ALTER VIEW v1 AS SELECT 2 FROM t2;
 UNLOCK TABLES;
 ```
 
-2. Isolation. The following SQL contains three SELECT statement, what's their output, and why?
+3. Isolation. The following SQL contains three SELECT statement, what's their output, and why?
 
 ```
 CREATE TABLE t1 (s1 INT) ENGINE=InnoDB;
