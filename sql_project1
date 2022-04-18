@@ -23,7 +23,7 @@ select product, country_id , year, sum(profit) from t1 group by product, country
 select product, country_id , year, sum(profit) from t1 group by product, country_id, year with rollup;
 ```
 
-2. Lock. We have three separate connections. What will happens after each queries(query1 - query4)?
+3. Lock. We have three separate connections. What will happens after each queries(query1 - query4)?
 
 ```
 CREATE TABLE t1 ( f1 INTEGER ) ENGINE = innodb;
