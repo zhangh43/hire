@@ -23,24 +23,19 @@ select product, country_id , year, sum(profit) from t1 group by product, country
 select product, country_id , year, sum(profit) from t1 group by product, country_id, year with rollup;
 ```
 
-2. Lock. We have three separate connections. What will happens after each queries(query1 - query4)?
+2. Join. Please write the results of the SELECT queries in the following SQL script and point out the difference between ON clause adn WHERE clause.
 
 ```
-CREATE TABLE t1 ( f1 INTEGER ) ENGINE = innodb;
-CREATE TABLE t2 ( f1 INTEGER );
-CREATE VIEW v1 AS SELECT 1 FROM t1;
-
-#Query 1 on connection con1:
-LOCK TABLE t1 WRITE;
-
-#Query 2 on connection con2:
-SELECT * FROM v1;
-
-#Query 3 on connection con3;
-ALTER VIEW v1 AS SELECT 2 FROM t2;
-
-#Query 4 on connection con1;
-UNLOCK TABLES;
+CREATE TABLE t1 ( i INTEGER, j INTEGER ) ENGINE = innodb;
+CREATE TABLE t2 ( i INTEGER, j INTEGER);
+INSERT INTO t1 VALUES (1,1);
+INSERT INTO t1 VALUES (4,4);
+INSERT INTO t1 VALUES (NULL,7);
+INSERT INTO t2 VALUES (1,2);
+INSERT INTO t2 VALUES (3,3);
+INSERT INTO t2 VALUES (NULL,6);
+SELECT * FROM t1 LEFT JOIN t2 ON t1.i IS NOT NULL;
+SELECT * FROM t1 LEFT JOIN t2 ON true WHERE t1.i IS NOT NULL;
 ```
 
 3. Isolation. The following SQL contains three SELECT statement, what's their output, and why?
@@ -61,9 +56,11 @@ COMMIT;
 
 # Query on connection con1:
 SELECT * FROM t1;
+SELECT COUNT(*) FROM t1;
 COMMIT;
 
 START TRANSACTION;
 SELECT * FROM t1;
+SELECT COUNT(*) FROM t1;
 COMMIT;
 ```
